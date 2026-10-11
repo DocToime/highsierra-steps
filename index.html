@@ -21,6 +21,12 @@ h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.8em}
 <p>Check it worked (it should say ENABLED):</p>
 <div class="cmd"><code>sysadminctl -secureTokenStatus Laurence</code><button>Copy</button></div>
 <hr style="margin:2em 0">
+<h2 style="color:#0a84ff">Move the secure token to Laurence</h2>
+<p>Run this on the Mac. It asks for Laurence's password first, then Sallyanne's.</p>
+<div class="cmd"><code>sysadminctl -secureTokenOn Laurence -password - -adminUser Sallyanne -adminPassword -</code><button>Copy</button></div>
+<p>Check it worked (it should say ENABLED):</p>
+<div class="cmd"><code>sysadminctl -secureTokenStatus Laurence</code><button>Copy</button></div>
+<hr style="margin:2em 0">
 <h2 style="color:#0a84ff">Let the PC read files in all accounts (read-only)</h2>
 <p>Run this on the Mac and type your password. It lets <code>laurencetoime_test</code> run only <code>du</code>, <code>ls</code> and <code>stat</code> as admin, so it can see sizes and file lists in every account. It can't change or delete anything. It should print <b>OK</b>.</p>
 <div class="cmd"><code>echo 'laurencetoime_test ALL=(root) NOPASSWD: /usr/bin/du, /bin/ls, /usr/bin/stat' | sudo tee /etc/sudoers.d/grokbot-read &gt; /dev/null &amp;&amp; sudo chmod 440 /etc/sudoers.d/grokbot-read &amp;&amp; sudo visudo -cf /etc/sudoers.d/grokbot-read &amp;&amp; echo OK</code><button>Copy</button></div>
