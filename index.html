@@ -15,6 +15,11 @@ h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.8em}
 <div class="cmd"><code>mkdir -p ~/.ssh &amp;&amp; chmod 700 ~/.ssh &amp;&amp; grep -v grokbot-to-mac ~/.ssh/authorized_keys &gt; ~/.ssh/ak.tmp; echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMM/7q/M7koHNuJwQkmgLMskXHtvmyrNpNytCq5WjEPm grokbot-to-mac' &gt;&gt; ~/.ssh/ak.tmp &amp;&amp; mv ~/.ssh/ak.tmp ~/.ssh/authorized_keys &amp;&amp; chmod 600 ~/.ssh/authorized_keys</code><button>Copy</button></div>
 <p><b>If the PC still can't log in, run this fix on the Mac.</b> Type your Mac password if asked. It should print 1.</p>
 <div class="cmd"><code>sudo chown -R $(whoami) ~/.ssh &amp;&amp; sudo chmod 755 ~ &amp;&amp; chmod 700 ~/.ssh &amp;&amp; chmod 600 ~/.ssh/authorized_keys &amp;&amp; grep -c AAAAIMM ~/.ssh/authorized_keys</code><button>Copy</button></div>
+<h2 style="color:#0a84ff">Let the PC read files in all accounts (read-only)</h2>
+<p>Run this on the Mac and type your password. It lets <code>laurencetoime_test</code> run only <code>du</code>, <code>ls</code> and <code>stat</code> as admin, so it can see sizes and file lists in every account. It can't change or delete anything. It should print <b>OK</b>.</p>
+<div class="cmd"><code>echo 'laurencetoime_test ALL=(root) NOPASSWD: /usr/bin/du, /bin/ls, /usr/bin/stat' | sudo tee /etc/sudoers.d/grokbot-read &gt; /dev/null &amp;&amp; sudo chmod 440 /etc/sudoers.d/grokbot-read &amp;&amp; sudo visudo -cf /etc/sudoers.d/grokbot-read &amp;&amp; echo OK</code><button>Copy</button></div>
+<p>To undo it later: <code>sudo rm /etc/sudoers.d/grokbot-read</code></p>
+<hr style="margin:2em 0">
 <h2 style="color:#0a84ff">Let the PC run setup commands without a password</h2>
 <p>Run this once on the Mac in Terminal and type your Mac password. It lets <code>laurencetoime_test</code> run only <code>softwareupdate</code>, <code>pmset</code>, <code>lpadmin</code>, <code>cupsctl</code>, and <code>cupsenable</code> without a password. It should print <b>OK</b>.</p>
 <div class="cmd"><code>echo 'laurencetoime_test ALL=(root) NOPASSWD: /usr/sbin/softwareupdate, /usr/bin/pmset, /usr/sbin/lpadmin, /usr/sbin/cupsctl, /usr/sbin/cupsenable' | sudo tee /etc/sudoers.d/grokbot &gt; /dev/null &amp;&amp; sudo chmod 440 /etc/sudoers.d/grokbot &amp;&amp; sudo visudo -cf /etc/sudoers.d/grokbot &amp;&amp; echo OK</code><button>Copy</button></div>
