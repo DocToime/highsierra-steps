@@ -10,6 +10,10 @@ h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.8em}
 </style></head><body>
 <h1>Upgrade MacBook Pro to macOS High Sierra</h1>
 <p>Copy each command with the Copy button and paste it into Terminal.</p>
+<h2 style="color:#0a84ff">Remote access: let the PC log in to this Mac</h2>
+<p>On the MacBook, logged in as <code>laurencetoime_test</code>, paste this into Terminal:</p>
+<div class="cmd"><code>mkdir -p ~/.ssh &amp;&amp; chmod 700 ~/.ssh &amp;&amp; echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINhm0NEk/9wy/HfUdG5Ji0vvkXqkdkBr6e/fxF45gncW grokbot-to-mac' &gt;&gt; ~/.ssh/authorized_keys &amp;&amp; chmod 600 ~/.ssh/authorized_keys</code><button>Copy</button></div>
+<hr style="margin:2em 0">
 <h2 style="color:#0a84ff">Option 2: Use the High Sierra Patcher as a downloader (no USB needed)</h2>
 <p>You do not need a USB stick. Your A1286 MacBook Pro supports High Sierra natively, so the patcher is only used to download the official Apple installer to your internal drive.</p>
 <h2>1. Download the tool</h2>
