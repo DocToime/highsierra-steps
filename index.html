@@ -10,6 +10,29 @@ h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.8em}
 </style></head><body>
 <h1>Upgrade MacBook Pro to macOS High Sierra</h1>
 <p>Copy each command with the Copy button and paste it into Terminal.</p>
+<h2 style="color:#0a84ff">Option 2: Use the High Sierra Patcher as a downloader (no USB needed)</h2>
+<p>You do not need a USB stick. Your A1286 MacBook Pro supports High Sierra natively, so the patcher is only used to download the official Apple installer to your internal drive.</p>
+<h2>1. Download the tool</h2>
+<p>Open Safari on your Mac, go to <a href="https://dosdude1.com/highsierra">dosdude1.com/highsierra</a>, and download the macOS High Sierra Patcher.</p>
+<h2>2. Download High Sierra directly</h2>
+<ul><li>Open the macOS High Sierra Patcher app.</li>
+<li>In the top menu bar, click <b>Tools &rarr; Download macOS High Sierra...</b></li>
+<li>Confirm the prompt, and save the downloaded file directly to your <code>/Applications</code> folder.</li>
+<li>The app fetches the full 5 GB official Apple installer from Apple's servers onto your hard drive.</li></ul>
+<h2>3. Run the installer</h2>
+<ul><li>When the download reaches 100%, quit the Patcher app. You don't need it to make a USB or apply patches.</li>
+<li>Open <b>Finder &rarr; Applications</b>.</li>
+<li>Double-click <b>Install macOS High Sierra</b> and follow the prompts to upgrade.</li></ul>
+<h2>Fallback: Download in Terminal (if the Patcher fails)</h2>
+<p>Open Terminal and run this command to download the installer:</p>
+<div class="cmd"><code>cd /Applications &amp;&amp; curl -O https://updates.cdn-apple.com/2019/cert/061-39476-20191023-48f504f5-60a6-408d-8622-a733cf5062e5/InstallmacOSHighSierra.dmg</code><button>Copy</button></div>
+<p>Once downloaded, mount the image and unpack it to /Applications:</p>
+<div class="cmd"><code>hdiutil attach InstallmacOSHighSierra.dmg</code><button>Copy</button></div>
+<div class="cmd"><code>sudo installer -pkg "/Volumes/Install macOS/InstallOS.pkg" -target /</code><button>Copy</button></div>
+<p>Then double-click <b>Install macOS High Sierra</b> in your Applications folder to run the upgrade.</p>
+<hr style="margin:2em 0">
+<h2 style="color:#555">Earlier instructions (Option 1: Terminal only)</h2>
+
 
 <h2>Step 1: Open Terminal &amp; Fetch the Installer Package</h2>
 <p>Open Terminal on your MacBook Pro (press Cmd + Space, type Terminal, and hit Enter). Then copy and paste this command:</p>
