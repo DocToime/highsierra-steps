@@ -65,6 +65,26 @@ h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.8em}
 <div class="cmd"><code>sudo pmset -a disablesleep 1
 sudo pmset -a autorestart 1</code><button>Copy</button></div>
 
+<hr style="margin:2em 0">
+<h1>After the upgrade: print server and home hub</h1>
+<h2>Phase 1: Post-upgrade checks and updates</h2>
+<p>Go to <b>Apple menu &rarr; About This Mac</b>. Check that it shows macOS High Sierra 10.13.6.</p>
+<p>Open Terminal and install the remaining updates:</p><div class="cmd"><code>sudo softwareupdate -i -a</code><button>Copy</button></div><p class="label"><b>Check:</b> run this. It should say "No new software available".</p><div class="cmd"><code>softwareupdate -l</code><button>Copy</button></div>
+<h2>Phase 2: Power and heat settings for server use</h2>
+<p>The goal is about 5&ndash;8 W at idle.</p>
+<p><b>Use the integrated GPU only.</b> Download <a href="https://gfx.io/">gfxCardStatus</a> (or the gSwitch fork). Click its menu bar icon and set it to <b>Integrated Only</b>.</p><p class="label"><b>Check:</b> the AMD discrete GPU stays off. This saves about 8&ndash;12 W and cuts heat.</p>
+<p><b>Keep it running with the lid closed:</b></p><div class="cmd"><code>sudo pmset -a disablesleep 1
+sudo pmset -a autorestart 1</code><button>Copy</button></div><p class="label"><b>Check:</b> close the lid while on power. The Mac should still answer on the network. From another computer, run:</p><div class="cmd"><code>ping macbook-pro.local</code><button>Copy</button></div>
+<h2>Phase 3: HP P1102w manual duplex printing</h2>
+<p>Phones and tablets can't handle the "flip the paper and continue" prompt, so the Mac hosts the printer.</p>
+<ul><li>Plug the HP LaserJet P1102w into the Mac by USB.</li>
+<li>Go to <b>System Preferences &rarr; Printers &amp; Scanners</b> and add the printer. Make sure it uses the <b>HP LaserJet Professional P1102w</b> driver, not Generic PostScript/PCL.</li>
+<li>Open a document, press <b>Cmd + P</b>, choose <b>Layout / Finishing</b>, and check that <b>Print on Both Sides (Manually)</b> is there.</li></ul><p class="label"><b>Check:</b> print a multi-page PDF. The printer prints side 1, the Mac asks you to flip the stack, and side 2 prints after you click Continue.</p>
+<p><b>Share the printer:</b> go to <b>System Preferences &rarr; Sharing</b>, tick <b>Printer Sharing</b>, and tick the HP P1102w.</p>
+<h2>Phase 4: Remote control and server services</h2>
+<p>Go to <b>System Preferences &rarr; Sharing</b> and tick <b>Remote Management</b> (or <b>Screen Sharing</b>) and <b>Remote Login</b>.</p><p class="label"><b>Check:</b> from your phone, iPad, or another laptop, connect with SSH (change username to your Mac username):</p><div class="cmd"><code>ssh username@macbook-pro.local</code><button>Copy</button></div>
+<p><b>Home hub automations:</b> run scripts natively with a local Node runtime, or use a small Linux setup (Docker, Multipass, or dual-boot) if you need Linux-only apps.</p>
+
 <script>
 (function(){
 var btns=document.getElementsByTagName('button');
