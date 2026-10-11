@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Upgrade MacBook Pro to macOS High Sierra</title>
+<style>
+body{font-family:-apple-system,Helvetica,Arial,sans-serif;max-width:820px;margin:0 auto;padding:20px;color:#222;background:#fafafa;line-height:1.5}
+h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.8em}
+.cmd{position:relative;background:#1e1e1e;color:#e6e6e6;border-radius:6px;padding:12px 80px 12px 12px;margin:8px 0;font-family:Menlo,Monaco,monospace;font-size:14px;white-space:pre-wrap;word-break:break-all}
+.cmd button{position:absolute;top:8px;right:8px;background:#0a84ff;color:#fff;border:0;border-radius:4px;padding:6px 10px;font-size:13px;cursor:pointer}
+.label{font-size:.9em;color:#555;margin-top:10px}
+</style></head><body>
+<h1>Upgrade MacBook Pro to macOS High Sierra</h1>
+<p>Copy each command with the Copy button and paste it into Terminal.</p>
+
+<h2>Step 1: Open Terminal &amp; Fetch the Installer Package</h2>
+<p>Open Terminal on your MacBook Pro (press Cmd + Space, type Terminal, and hit Enter). Then copy and paste this command:</p>
+<div class="cmd"><code>cd ~/Downloads &amp;&amp; curl -O https://updates.cdn-apple.com/2019/cert/061-39476-20191023-48f504f5-60a6-408d-8622-a733cf5062e5/InstallmacOSHighSierra.dmg</code><button>Copy</button></div>
+
+<h2>Step 2: Mount the DMG Image</h2>
+<p>Once the download finishes, mount the downloaded image to your filesystem:</p>
+<div class="cmd"><code>hdiutil attach InstallmacOSHighSierra.dmg</code><button>Copy</button></div>
+
+<h2>Step 3: Extract the Installer to your Applications Folder</h2>
+<p>Run the installer package inside the DMG to extract the official Install macOS High Sierra app:</p>
+<div class="cmd"><code>sudo installer -pkg "/Volumes/Install macOS/InstallOS.pkg" -target /</code><button>Copy</button></div>
+<p>(Enter your administrator password when prompted.)</p>
+
+<h2>Step 4: Launch the High Sierra Upgrade</h2>
+<p>Finally, open the installer app to start the upgrade process:</p>
+<div class="cmd"><code>open "/Applications/Install macOS High Sierra.app"</code><button>Copy</button></div>
+
+<h2>Step 5: Post-Install Update Check (Run After Upgrade Finishes)</h2>
+<p>Once your Mac finishes upgrading to High Sierra and reboots, open Terminal and run this to pull any remaining security patches:</p>
+<div class="cmd"><code>sudo softwareupdate -i -a</code><button>Copy</button></div>
+
+<h2>Step 6: Power Saver Settings for Server Use (Optional)</h2>
+<p>If you plan to run this MacBook Pro headless/lid-closed as your server:</p>
+<div class="label">Prevent system sleep when the lid is closed</div>
+<div class="cmd"><code>sudo pmset -a disablesleep 1</code><button>Copy</button></div>
+<div class="label">Enable auto-restart if power cuts out</div>
+<div class="cmd"><code>sudo pmset -a autorestart 1</code><button>Copy</button></div>
+<div class="label">Both together</div>
+<div class="cmd"><code>sudo pmset -a disablesleep 1
+sudo pmset -a autorestart 1</code><button>Copy</button></div>
+
+<script>
+(function(){
+var btns=document.getElementsByTagName('button');
+function fallback(t,b){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy');done(b);}catch(e){}document.body.removeChild(a);}
+function done(b){b.innerHTML='Copied!';setTimeout(function(){b.innerHTML='Copy';},1500);}
+for(var i=0;i<btns.length;i++){btns[i].onclick=function(){var b=this;var t=b.parentNode.getElementsByTagName('code')[0].textContent;
+if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(b);},function(){fallback(t,b);});}else{fallback(t,b);}};}
+})();
+</script>
+</body></html>
