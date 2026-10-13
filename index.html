@@ -10,6 +10,29 @@ h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.8em}
 </style></head><body>
 <h1>Upgrade MacBook Pro to macOS High Sierra</h1>
 <p>Copy each command with the Copy button and paste it into Terminal.</p>
+<h2 style="color:#0a84ff">Make room for Linux on the SSD (13 Oct)</h2>
+<p>Do these steps in order on the Mac, in Terminal. Type your Mac password when asked. If an output does not look like the "good" text, stop and tell Grok Bot.</p>
+<h2>1. Safety check</h2>
+<p>This shows the free space and any Time Machine snapshots. Snapshots stop the shrink. Good: about 104Gi in the "Avail" column.</p>
+<div class="cmd"><code>df -h /</code><button>Copy</button></div>
+<p>This lists the snapshots. Good: no lines with "com.apple.TimeMachine" (on 13 Oct there were none).</p>
+<div class="cmd"><code>tmutil listlocalsnapshots /</code><button>Copy</button></div>
+<p>Only if the last command showed snapshots: this deletes them. Good: "Thinned local snapshots" or no output.</p>
+<div class="cmd"><code>sudo tmutil thinlocalsnapshots / 999999999999 4</code><button>Copy</button></div>
+<h2>2. Check the SSD for errors</h2>
+<p>This checks the SSD. It changes nothing. Good: the last line says "The volume ... appears to be OK" and "Finished".</p>
+<div class="cmd"><code>sudo diskutil verifyVolume disk2</code><button>Copy</button></div>
+<h2>3. Shrink macOS (this step changes the SSD)</h2>
+<p><b>This is the only step that changes the SSD.</b> It makes the macOS space 160 GB. macOS uses 128 GB now, so it keeps 32 GB spare. Linux gets about 80 GB. It can take some minutes. Do not close the lid or stop it. Good: "Finished APFS operation".</p>
+<div class="cmd"><code>sudo diskutil apfs resizeContainer disk1s2 160g</code><button>Copy</button></div>
+<p>Check it. Good: disk1s2 is about 160.0 GB and you see "(free space)" of about 79.8 GB.</p>
+<div class="cmd"><code>diskutil list disk1</code><button>Copy</button></div>
+<h2>4. Erase BOOTCAMP for the installer</h2>
+<p>First check the name. Good: line 4 of /dev/disk0 says <b>BOOTCAMP 100.8 GB disk0s4</b>. <b>If disk0s4 is not BOOTCAMP 100.8 GB, stop.</b> Do not run the next command.</p>
+<div class="cmd"><code>diskutil list disk0</code><button>Copy</button></div>
+<p>This erases BOOTCAMP (already backed up) and names it UBUNTU. Good: "Finished erase on disk0s4 UBUNTU".</p>
+<div class="cmd"><code>sudo diskutil eraseVolume MS-DOS UBUNTU disk0s4</code><button>Copy</button></div>
+<hr style="margin:2em 0">
 <h2 style="color:#0a84ff">Remote access: let the PC log in to this Mac</h2>
 <p>On the MacBook, logged in as <code>laurencetoime_test</code>, paste this into Terminal:</p>
 <div class="cmd"><code>mkdir -p ~/.ssh &amp;&amp; chmod 700 ~/.ssh &amp;&amp; grep -v grokbot-to-mac ~/.ssh/authorized_keys &gt; ~/.ssh/ak.tmp; echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMM/7q/M7koHNuJwQkmgLMskXHtvmyrNpNytCq5WjEPm grokbot-to-mac' &gt;&gt; ~/.ssh/ak.tmp &amp;&amp; mv ~/.ssh/ak.tmp ~/.ssh/authorized_keys &amp;&amp; chmod 600 ~/.ssh/authorized_keys</code><button>Copy</button></div>
