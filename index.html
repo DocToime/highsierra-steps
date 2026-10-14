@@ -10,6 +10,15 @@ h1{font-size:1.6em}h2{font-size:1.15em;margin-top:1.8em}
 </style></head><body>
 <h1>Upgrade MacBook Pro to macOS High Sierra</h1>
 <p>Copy each command with the Copy button and paste it into Terminal.</p>
+<h2 style="color:#0a84ff">Boot the installer (14 Oct)</h2>
+<p>Do this after Grok Bot says the installer is ready on the UBUNTU partition.</p>
+<h2>1. Turn off the AMD graphics chip at startup</h2>
+<p>Paste this in Terminal and type your Mac password. Good: no output.</p>
+<div class="cmd"><code>sudo nvram fa4ce28d-b62f-4c99-9cc3-6815686e30f9:gpu-power-prefs=%01%00%00%00</code><button>Copy</button></div>
+<h2>2. Start the installer</h2>
+<p>Restart the Mac and hold the Option (alt) key straight away until the startup disks appear. Pick <b>EFI Boot</b> (yellow drive icon) and press Return. In the menu that follows, press Return on the first entry.</p>
+<h2>3. Stop at the first screen</h2>
+<p>When the Xubuntu installer shows its first screen (language / "Try or Install"), <b>stop there</b>. Don't click Install. Tell Home Server it's on screen, or tell it if the screen goes black.</p>
 <h2 style="color:#0a84ff">Make room for Linux on the SSD (13 Oct)</h2>
 <p>Do these steps in order on the Mac, in Terminal. Type your Mac password when asked. If an output does not look like the "good" text, stop and tell Grok Bot.</p>
 <h2>1. Safety check</h2>
